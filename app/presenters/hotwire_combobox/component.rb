@@ -44,7 +44,7 @@ class HotwireCombobox::Component
       name: hidden_field_name,
       data: hidden_field_data,
       value: hidden_field_value
-    }.merge hidden_input.except(*nested_attrs)
+    }.merge hidden_field_attrs.except(*nested_attrs)
   end
 
 
@@ -147,7 +147,7 @@ class HotwireCombobox::Component
   private
     attr_reader :view, :autocomplete, :id, :name, :value, :form,
       :name_when_new, :open, :data, :combobox_attrs, :mobile_at,
-      :association_name
+      :association_name, :hidden_field_attrs
 
     def infer_association_name
       if name.to_s.include?("_id")
