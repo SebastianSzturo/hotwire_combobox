@@ -11,6 +11,7 @@ class HotwireCombobox::Component
       form:             nil,
       id:               nil,
       input:            {},
+      hidden_input:     {},
       mobile_at:        "640px",
       name_when_new:    nil,
       open:             false,
@@ -23,6 +24,7 @@ class HotwireCombobox::Component
       name_when_new, open, data, mobile_at, options, dialog_label
 
     @combobox_attrs = input.reverse_merge(rest).with_indifferent_access
+    @hidden_field_attrs = hidden_input.with_indifferent_access
     @association_name = association_name || infer_association_name
   end
 
@@ -35,12 +37,14 @@ class HotwireCombobox::Component
 
 
   def hidden_field_attrs
+    nested_attrs = %i[ data ]
+
     {
       id: hidden_field_id,
       name: hidden_field_name,
       data: hidden_field_data,
       value: hidden_field_value
-    }
+    }.merge hidden_input.except(*nested_attrs)
   end
 
 
